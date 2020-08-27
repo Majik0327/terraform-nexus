@@ -15,7 +15,7 @@ resource "aws_instance" "gd_example" {
 	provisioner "file" {
 		source = "./script.sh"
 		destination = "/tmp/script.sh"
-	}tf de
+	}
 	
 	provisioner "remote-exec" {
 		inline = [
