@@ -20,8 +20,7 @@ resource "aws_instance" "gd_example" {
 	provisioner "remote-exec" {
 		inline = [
 			"chmod +x /tmp/script.sh",
-			"sudo /tmp/script.sh",
-			"/home/ubuntu/nexus/bin/nexus start"
+			"sudo /tmp/script.sh"
 		]
 	}
 	connection {

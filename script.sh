@@ -22,5 +22,9 @@ mv nexus-* nexus
 sudo chown -R ubuntu ./nexus
 sudo chown -R ubuntu ./sonatype-work
 
+# reset
+source ~/.profile
+source ~/.bashrc
+
 # start nexus
-# ./nexus/bin/nexus start
+./nexus/bin/nexus start
