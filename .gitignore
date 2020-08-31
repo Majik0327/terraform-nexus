@@ -3,3 +3,4 @@ terraform.tfstate*
 mykey*
 *.swp
 terraform.tfvars
+*.swx

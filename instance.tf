@@ -1,3 +1,7 @@
+data "template_file" "user_data" {
+    template = file("${path.root}/userdata/nexus.tpl")
+}
+
 resource "aws_instance" "gd_example" {
 	ami = lookup(var.AMIs, var.AWS_REGION)
 	instance_type = "t2.small"
@@ -12,24 +16,29 @@ resource "aws_instance" "gd_example" {
 	# key_name = aws_key_pair.mykeypair.key_name
 	key_name = var.KEYPAIR_NAME
 	
-	provisioner "file" {
-		source = "./script.sh"
-		destination = "/tmp/script.sh"
-	}
+	user_data = base64encode(data.template_file.user_data.template)
 	
-	provisioner "remote-exec" {
-		inline = [
-			"chmod +x /tmp/script.sh",
-			"sudo /tmp/script.sh"
-		]
-	}
-	connection {
-		
-		host = self.public_ip
-		type = "ssh"
-		user = var.INSTANCE_USERNAME
-		private_key = file("${var.PATH_TO_PRIVATE_KEY}")
-		
-	}
+#	provisioner "file" {
+#		source = "./script.sh"
+#		destination = "/tmp/script.sh"
+#	}
+#	
+#	provisioner "remote-exec" {
+#		inline = [
+#			"chmod +x /tmp/script.sh",
+#			"sudo /tmp/script.sh"
+#		]
+#	}
+#	provisioner "remote-exec" {
+#		script = "./script.sh"
+#	}
+#	connection {
+#		
+#		host = self.public_ip
+#		type = "ssh"
+#		user = var.INSTANCE_USERNAME
+#		private_key = file("${var.PATH_TO_PRIVATE_KEY}")
+#		
+#	}
 }
 
